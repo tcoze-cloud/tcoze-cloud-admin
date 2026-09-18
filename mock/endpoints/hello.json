@@ -1,0 +1,13 @@
+[
+  {
+    "description": "这是一个moco例子",
+    "request": {
+      "uri": "/hello"
+    },
+    "response":
+    {
+      "text": "Hello,Moco",
+      "status": "200"
+    }
+  }
+]

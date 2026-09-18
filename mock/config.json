@@ -1,0 +1,11 @@
+[
+  {
+    "include": "cors.json"
+  },
+  {
+    "include": "endpoints/hello.json"
+  },
+  {
+    "include": "endpoints/auth.json"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "description": "CORS 预检 OPTIONS 通配（带自定义请求头会触发浏览器预检）",
+    "request": {
+      "method": "OPTIONS"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Max-Age": "86400"
+      }
+    }
+  }
+]

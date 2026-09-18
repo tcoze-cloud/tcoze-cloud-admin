@@ -1,0 +1,397 @@
+/* 覆盖element-plus样式 */
+:root {
+    /* ---------- 主色：比 #409eff 更深一档，降低饱和度（App.vue 会按用户选择的主题色覆盖主色及其梯度） ---------- */
+    --el-color-primary: #2563eb;
+    --el-color-primary-light-1: #3b73ed;
+    --el-color-primary-light-2: #5182ef;
+    --el-color-primary-light-3: #6692f1;
+    --el-color-primary-light-4: #7ca1f3;
+    --el-color-primary-light-5: #92b1f5;
+    --el-color-primary-light-6: #a8c1f7;
+    --el-color-primary-light-7: #bed0f9;
+    --el-color-primary-light-8: #d3e0fb;
+    --el-color-primary-light-9: #e9effd;
+    --el-color-primary-dark-1: #2159d3;
+    --el-color-primary-dark-2: #1e4fbc;
+    --el-color-primary-dark-3: #1a45a5;
+    --el-color-primary-dark-4: #163b8e;
+    --el-color-primary-dark-5: #133177;
+    --el-color-primary-dark-6: #0f275f;
+    --el-color-primary-dark-7: #0b1d48;
+    --el-color-primary-dark-8: #081431;
+    --el-color-primary-dark-9: #040a19;
+
+    /* ---------- 文字：以中性灰阶建立信息层级，避免纯黑 + 纯灰的硬对比 ---------- */
+    --el-text-color-primary: #18181b;
+    --el-text-color-regular: #52525b;
+    --el-text-color-secondary: #71717a;
+    --el-text-color-placeholder: #a1a1aa;
+    --el-text-color-disabled: #c4c4c9;
+
+    /* ---------- 分割线：统一细线，浅一档更柔和 ---------- */
+    --el-border-color: #e4e4e7;
+    --el-border-color-light: #ebebed;
+    --el-border-color-lighter: #f1f1f3;
+    --el-border-color-extra-light: #f6f6f7;
+    --el-border-color-dark: #d4d4d8;
+    --el-border-color-darker: #a1a1aa;
+
+    /* ---------- 填充色 ---------- */
+    --el-fill-color: #f4f4f5;
+    --el-fill-color-light: #f7f7f8;
+    --el-fill-color-lighter: #fafafa;
+    --el-fill-color-extra-light: #fcfcfd;
+    --el-fill-color-dark: #ebebed;
+    --el-fill-color-darker: #e4e4e7;
+
+    /* ---------- 背景 ---------- */
+    --el-bg-color: #ffffff;
+    --el-bg-color-page: #f7f7f8;
+    --el-bg-color-overlay: #ffffff;
+
+    /* ---------- 圆角 / 尺寸 ---------- */
+    --el-border-radius-base: 8px;
+    --el-border-radius-small: 6px;
+    --el-border-radius-round: 999px;
+    --el-component-size: 34px;
+    --el-component-size-small: 28px;
+    --el-component-size-large: 40px;
+    --el-font-size-base: 14px;
+
+    /* ---------- 阴影：仅用于浮层，低透明度、小范围 ---------- */
+    --el-box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+    --el-box-shadow-light: 0 4px 12px rgba(16, 24, 40, 0.06);
+    --el-box-shadow-lighter: 0 1px 3px rgba(16, 24, 40, 0.06);
+    --el-box-shadow-dark: 0 12px 32px rgba(16, 24, 40, 0.12);
+
+    /* ---------- 组件级变量 ---------- */
+    --el-card-border-radius: var(--app-radius-lg);
+    --el-card-border-color: var(--app-border);
+    --el-card-padding: 20px;
+    --el-dialog-border-radius: var(--app-radius-lg);
+    --el-drawer-padding-primary: 20px;
+    --el-tag-border-radius: 6px;
+    --el-table-border-color: var(--app-border);
+    --el-table-header-bg-color: #fafafa;
+    --el-table-row-hover-bg-color: #fafafa;
+
+    /* 表格表头样式变量 */
+    --table-header-text-color: #71717a;
+    --table-header-bg-color: #fafafa;
+}
+
+.el-menu {
+    border: none !important;
+}
+
+.el-menu .el-menu-item,
+.el-menu .el-sub-menu__title {
+    height: 40px;
+    line-height: 40px;
+}
+
+/* 侧边栏（纵向菜单）：行高紧凑，配色由 _app.scss 中的深色菜单变量统一提供 */
+.admin-side .el-menu {
+    --el-menu-item-height: 38px;
+    --el-menu-sub-item-height: 34px;
+    --el-menu-base-level-padding: 12px;
+    --el-menu-icon-width: 18px;
+}
+
+.admin-side .el-menu .el-menu-item,
+.admin-side .el-menu .el-sub-menu__title {
+    margin: 2px 8px;
+    border-radius: var(--app-radius);
+    font-size: 13px;
+}
+
+/* 一级菜单项左侧内边距由 Element 以内联样式给出，这里统一收敛缩进 */
+.admin-side .el-menu > .el-menu-item,
+.admin-side .el-menu > .el-sub-menu > .el-sub-menu__title {
+    padding-left: 12px !important;
+}
+
+.admin-side .el-menu .el-menu-item.is-active {
+    font-weight: 500;
+}
+
+.el-menu .el-menu-item a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.el-container {
+    height: 100%;
+}
+
+.el-aside {
+    border-right: 1px solid var(--el-border-color-light);
+}
+
+.el-container + .el-aside {
+    border-right: 0;
+    border-left: 1px solid var(--el-border-color-light);
+}
+
+.el-header {
+    background: var(--el-bg-color);
+    border-bottom: 1px solid var(--app-border);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.el-header .left-panel {
+    display: flex;
+    align-items: center;
+}
+
+.el-header .right-panel {
+    display: flex;
+    align-items: center;
+}
+
+.el-header .right-panel > * + * {
+    margin-left: 10px;
+}
+
+.el-footer {
+    background: var(--el-bg-color);
+    border-top: 1px solid var(--app-border);
+    padding: 13px 20px !important;
+    height: 46px !important;
+}
+
+.el-main {
+    padding: 16px 20px;
+}
+
+.el-main.nopadding {
+    padding: 0;
+    background: var(--el-bg-color);
+}
+
+.el-drawer__body {
+    overflow: auto;
+    padding: 0;
+}
+
+.el-popconfirm__main {
+    margin: 14px 0;
+}
+
+/* 卡片：细线分隔的标题栏，标题字号收敛到 15px */
+.el-card {
+    border: 1px solid var(--app-border);
+    box-shadow: none !important;
+}
+
+.el-card__header {
+    border-bottom: 1px solid var(--app-border);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 20px;
+}
+
+.el-card__body {
+    padding: 20px;
+}
+
+.el-dialog__title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.el-dialog__header {
+    margin-right: 0;
+    padding: 20px 20px 12px;
+}
+
+.el-dialog__body {
+    padding: 8px 20px 20px;
+}
+
+.el-drawer__header {
+    margin-bottom: 0;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--app-border);
+    color: var(--el-text-color-primary);
+}
+
+.el-drawer__header > :first-child {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.el-tree.menu .el-tree-node__content {
+    height: 36px;
+}
+
+.el-tree.menu .el-tree-node__content .el-tree-node__label .icon {
+    margin-right: 5px;
+}
+
+.el-progress__text {
+    font-size: 13px !important;
+}
+
+.el-progress__text i {
+    font-size: 14.4px !important;
+}
+
+.el-step.is-horizontal .el-step__line {
+    height: 1px;
+}
+
+.el-step__title {
+    font-size: 14px;
+}
+
+.drawerBG {
+    background: var(--app-bg-page);
+}
+
+.el-button + .el-dropdown {
+    margin-left: 10px;
+}
+
+.el-button-group + .el-dropdown {
+    margin-left: 10px;
+}
+
+.el-button-group + .el-button-group {
+    margin-left: 10px;
+}
+
+.el-tabs__nav-wrap::after {
+    height: 1px;
+}
+
+.el-table th.is-sortable {
+    transition: 0.1s;
+}
+
+.el-table th.is-sortable:hover {
+    background: var(--el-fill-color-light);
+}
+
+.el-table .el-table__body-wrapper {
+    background: var(--el-bg-color);
+}
+
+.el-form-item-msg {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--el-text-color-secondary);
+    clear: both;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.el-col .el-card {
+    margin-bottom: 15px;
+}
+
+.el-main {
+    flex-basis: 100%;
+}
+
+.el-table.el-table--large {
+    font-size: 14px;
+}
+
+.el-table.el-table--small {
+    font-size: 13px;
+}
+
+.el-table {
+    font-size: 13px;
+}
+
+/* 表格样式调整：表头弱化（中性底色 + 13px 中等字重），行悬浮使用极浅底色 */
+.el-table {
+    --el-table-header-text-color: var(--table-header-text-color) !important;
+    --el-table-header-bg-color: var(--table-header-bg-color) !important;
+    font-size: 13px;
+    thead {
+        th {
+            font-size: 13px;
+            font-weight: 500;
+        }
+    }
+}
+
+.el-table--default .el-table__cell {
+    padding: 11px 0;
+}
+
+.el-table .el-table__inner-wrapper::before {
+    background-color: var(--app-border);
+}
+
+/* 按钮：统一中等字重，圆角由 --el-border-radius-base 控制 */
+.el-button {
+    --el-button-font-weight: 500;
+}
+
+.el-radio-button__inner {
+    font-size: 13px;
+}
+
+.el-checkbox-button__inner {
+    font-size: 13px;
+}
+
+.el-sub-menu .el-icon {
+    font-size: 17px;
+}
+
+.el-sub-menu .el-sub-menu__icon-arrow {
+    font-size: 13px;
+}
+
+/* 一级模块导航选中态：主色填充 + 白色文字（深色菜单列无需加粗之外的额外处理） */
+.admin-side-split li.active {
+    background-color: var(--app-side-bg-active);
+    color: var(--app-side-text-active);
+}
+
+.admin-tags li:hover {
+    background-color: var(--el-color-primary-light-9);
+}
+
+.admin-tags li.active {
+    background-color: var(--el-color-primary-light-9) !important;
+    color: var(--el-color-primary);
+}
+
+.contextmenu li:hover {
+    background-color: var(--app-bg-muted) !important;
+    color: var(--el-text-color-primary) !important;
+}
+
+.data-box .item-background {
+    background-color: var(--el-color-primary) !important;
+}
+
+.layout-setting,
+.diy-grid-setting {
+    background-color: var(--el-color-primary) !important;
+}
+
+/* 全部禁用el-tag动画 */
+.el-tag {
+    transition: all 0s !important;
+}
+
+/* 覆盖tinymce样式 */
+body .tox-tinymce-aux {
+    z-index: 5700;
+}

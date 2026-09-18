@@ -1,0 +1,860 @@
+:root {
+    --font-sans:
+        'PingFang', 'PingFang SC', 'Source Han Sans SC', 'Microsoft YaHei', ui-sans-serif, system-ui,
+        -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+    /* Element Plus 组件同样跟随全局字体栈 */
+    --el-font-family: var(--font-sans);
+
+    /* ---------- 设计变量：中性色 / 圆角 / 细线 / 阴影 ---------- */
+    /* 页面画布底色（避免纯白造成的高对比） */
+    --app-bg-page: #f7f7f8;
+    /* 次级容器底色：侧边栏、表头、空状态等 */
+    --app-bg-subtle: #fafafa;
+    /* 悬浮 / 选中态底色 */
+    --app-bg-muted: #f4f4f5;
+    /* 分割线：统一 1px 细线，禁止用重阴影分割区块 */
+    --app-border: #ebebed;
+    --app-border-strong: #e0e0e3;
+    /* 圆角 */
+    --app-radius-sm: 6px;
+    --app-radius: 8px;
+    --app-radius-md: 10px;
+    --app-radius-lg: 14px;
+    /* 阴影：低透明度、小范围，仅用于浮层 */
+    --app-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.04);
+    --app-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+    --app-shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
+
+    /* ---------- 左侧菜单（深色）配色：内容区保持浅色，靠明暗对比区分主导航 ---------- */
+    --app-side-split-bg: #1b2230; /* 一级菜单列（更暗） */
+    --app-side-bg: #212d3d; /* 全高侧边栏（经典/通栏布局） */
+    --app-dock-bg: #222b45; /* 功能坞布局顶部通栏 */
+    --app-side-nested-bg: rgba(0, 0, 0, 0.24); /* 嵌套子菜单底 */
+    --app-side-border: rgba(255, 255, 255, 0.08);
+    --app-side-text: rgba(255, 255, 255, 0.68);
+    --app-side-text-hover: #ffffff;
+    --app-side-bg-hover: rgba(255, 255, 255, 0.08);
+    --app-side-bg-active: var(--el-color-primary);
+    --app-side-text-active: #ffffff;
+    --app-side-accent: #8f93fd; /* 深色底上可读的主色提亮色 */
+    --app-side-scrollbar: rgba(255, 255, 255, 0.16);
+}
+
+/* 全局 */
+#app,
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--app-bg-page);
+    font-family: var(--font-sans);
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: inherit !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+}
+
+a {
+    color: var(--el-text-color-primary);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: var(--el-color-primary);
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+a,
+button,
+input,
+textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    outline: none !important;
+    -webkit-appearance: none;
+}
+
+/* 大布局样式 */
+.adminui {
+    display: flex;
+    flex-flow: column;
+}
+
+.admin-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+}
+
+/* 全局滚动条样式 */
+.scrollable {
+    -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.16);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.28);
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: transparent;
+}
+
+/*布局设置*/
+.layout-setting {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--app-radius-md) 0 0 var(--app-radius-md);
+    bottom: 100px;
+    right: 0px;
+    z-index: 100;
+    background: var(--el-color-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--app-shadow-sm);
+}
+
+.layout-setting i {
+    font-size: 18px;
+    color: var(--el-color-white);
+}
+
+/* 头部 */
+.admin-header {
+    height: 58px;
+    background: var(--el-bg-color);
+    color: var(--el-text-color-primary);
+    border-bottom: 1px solid var(--app-border);
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-header-left {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* 功能坞布局：顶部菜单靠左，与 Logo 间留出间距 */
+.admin-header-menu {
+    margin-left: 24px;
+}
+
+.admin-header .logo-bar {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.admin-header .logo-bar .logo {
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+}
+
+.admin-header .nav {
+    display: flex;
+    height: 58px; /* 与顶栏同高，确保激活下划线贴底（与功能坞一致） */
+    align-self: stretch;
+    margin-left: 14px; /* 贴左：收紧与收起按钮/Logo 的间距 */
+}
+
+.admin-header .nav li {
+    padding: 0 10px;
+    margin: 0 10px 0 0;
+    font-size: 13px;
+    color: var(--el-text-color-secondary);
+    list-style: none;
+    height: 58px; /* 与顶栏同高，激活下划线落在顶栏底边 */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.admin-header .nav li i {
+    margin-right: 5px;
+}
+
+.admin-header .nav li:hover {
+    color: var(--el-text-color-primary);
+}
+
+.admin-header .nav li.active {
+    /* 与功能坞布局（el-menu 横向）选中风格一致：主色文字 + 底部指示线 */
+    color: var(--el-color-primary);
+    border-bottom: 2px solid var(--el-color-primary);
+}
+
+.admin-header .user-bar .panel-item:hover {
+    background: var(--el-fill-color-light) !important;
+}
+
+.admin-header .user-bar .user label {
+    color: var(--el-text-color-primary);
+}
+
+/* 左侧菜单 */
+.admin-side-split {
+    width: 65px;
+    flex-shrink: 0;
+    background: var(--app-side-split-bg);
+    border-right: 1px solid var(--app-side-border);
+    display: flex;
+    flex-flow: column;
+}
+
+.admin-side-split-top {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-side-split-top a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-side-split-top .logo {
+    height: 32px;
+    vertical-align: bottom;
+}
+
+.admin-side-split-scroll {
+    font-size: 12px;
+    overflow: auto;
+    overflow-x: hidden;
+    height: 100%;
+    flex: 1;
+    padding: 8px 0;
+}
+
+.admin-side-split li {
+    cursor: pointer;
+    width: 53px;
+    height: 58px;
+    margin: 2px 6px;
+    padding: 6px 0;
+    box-sizing: border-box;
+    color: var(--app-side-text);
+    text-align: center;
+    border-radius: var(--app-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.admin-side-split li i {
+    font-size: 18px;
+}
+
+.admin-side-split li p {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.admin-side-split li:hover {
+    background: var(--app-side-bg-hover);
+    color: var(--app-side-text-hover);
+}
+
+.admin-side-split li.active {
+    background: var(--app-side-bg-active);
+    color: var(--app-side-text-active);
+    font-weight: 500;
+}
+
+.admin-side-split-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--app-side-scrollbar);
+    border-radius: 999px;
+}
+
+.admin-side-split-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.28);
+}
+
+.admin-side-split-scroll::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.admin-side-split-scroll::-webkit-scrollbar-track:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.admin-side {
+    display: flex;
+    flex-flow: column;
+    flex-shrink: 0;
+    width: 210px;
+    background: var(--el-bg-color);
+    border-right: 1px solid var(--app-border);
+    transition: width 0.3s ease;
+}
+
+.not-aside {
+    width: 0 !important;
+    border-right: none !important;
+}
+
+.admin-side-top {
+    display: flex;
+    align-items: center;
+    background: var(--el-bg-color);
+    border-bottom: 1px solid var(--app-border);
+    height: 57px;
+    box-sizing: border-box;
+}
+
+.admin-side-top h2 {
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--el-text-color-secondary);
+}
+
+.admin-side-scroll {
+    overflow: auto;
+    overflow-x: hidden;
+    flex: 1;
+    padding: 6px 0;
+}
+
+.admin-side-bottom {
+    background: var(--el-bg-color);
+    border-top: 1px solid var(--app-border);
+    height: 42px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--el-text-color-secondary);
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.admin-side-bottom i {
+    font-size: 16px;
+}
+
+.admin-side-bottom:hover {
+    background: var(--app-bg-muted);
+    color: var(--el-color-primary);
+}
+
+.admin-side.isCollapse {
+    width: 65px;
+}
+
+/* —— 二级菜单默认配色（默认布局）：浅色底，与深色的一级菜单列形成明暗对比 —— */
+.admin-side .el-menu {
+    --el-menu-bg-color: transparent;
+    --el-menu-text-color: var(--el-text-color-regular);
+    --el-menu-hover-bg-color: var(--app-bg-muted);
+    --el-menu-hover-text-color: var(--el-text-color-primary);
+    --el-menu-active-color: var(--el-color-primary);
+    --el-menu-border-color: transparent;
+}
+
+/* 嵌套子菜单同一底色，靠缩进表达层级 */
+.admin-side .el-menu .el-menu {
+    background-color: transparent;
+}
+
+/* 选中项：中性底色 + 主色文字，避免整块实心主色 */
+.admin-side .el-menu .el-menu-item.is-active {
+    background-color: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
+    font-weight: 500;
+}
+
+.menu-tag {
+    position: absolute;
+    height: 18px;
+    line-height: 18px;
+    background: var(--el-color-danger);
+    font-size: 13px;
+    color: #fff;
+    right: 20px;
+    border-radius: 18px;
+    padding: 0 6px;
+}
+
+.el-menu .el-sub-menu__title .menu-tag {
+    right: 40px;
+}
+
+/* 水平菜单（功能坞模式）：tag 改为跟随文字内联显示，不再绝对定位隐藏 */
+.el-menu--horizontal > li .menu-tag,
+.el-menu--horizontal > li > .el-sub-menu__title .menu-tag,
+.el-menu--horizontal > .el-menu-item .menu-tag,
+.el-menu--horizontal > .link-menu-item .menu-tag {
+    position: static;
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* 右侧内容 */
+.admin-body {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    min-width: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.admin-topbar {
+    width: 100%;
+    height: 56px;
+    border-bottom: 1px solid var(--app-border);
+    background: var(--el-bg-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-topbar .left-panel {
+    display: flex;
+    align-items: center;
+}
+
+.admin-topbar .right-panel {
+    display: flex;
+    align-items: center;
+}
+
+.right-panel-search {
+    display: flex;
+    align-items: center;
+}
+
+.right-panel-search > * + * {
+    margin-left: 10px;
+}
+
+.admin-tags {
+    align-content: center;
+    height: 44px;
+    background: var(--el-bg-color);
+    border-bottom: 1px solid var(--app-border);
+}
+
+.admin-main {
+    overflow: auto;
+    background-color: var(--app-bg-page);
+    flex: 1;
+}
+
+/*页面最大化*/
+.adminui.main-maximize {
+    .main-maximize-exit {
+        display: block;
+    }
+
+    .admin-side-split,
+    .admin-side,
+    .admin-header,
+    .admin-topbar,
+    .admin-tags {
+        display: none;
+    }
+}
+
+.main-maximize-exit {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    top: -20px;
+    left: 50%;
+    margin-left: -20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.main-maximize-exit i {
+    font-size: 14px;
+    margin-top: 22px;
+    color: #fff;
+}
+
+.main-maximize-exit:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/*定宽页面*/
+.admin-page {
+    width: 1230px;
+    margin: 0 auto;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all 0.2s;
+}
+
+.fade-transform-enter-from {
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translateX(30px);
+}
+
+.h-full {
+    height: 100%;
+}
+
+/* ============ 经典布局（menu） & 通栏布局（header）专属样式 ============ */
+/* 结构：左侧全高侧边栏（含 Logo），右侧顶部栏（不含 Logo），边界完全分离，无重叠。 */
+
+/* —— 结构与布局（明暗通用） —— */
+html body[data-layout='menu'],
+html body[data-layout='header'] {
+    /* 侧边栏顶部 Logo 区 */
+    .admin-side-top {
+        display: flex;
+        align-items: center;
+        height: 57px;
+        padding: 0 16px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .admin-side-top .logo {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .admin-side-top .logo-text {
+        margin-left: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--app-side-text-hover);
+    }
+
+    /* 收起态：仅保留 Logo 图形，系统名称隐藏并居中 */
+    .admin-side.isCollapse .admin-side-top {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .admin-side.isCollapse .admin-side-top .logo-text {
+        display: none;
+    }
+
+    /* 顶部栏左侧操作区（收起 / 关闭 按钮，置于面包屑前） */
+    .top-actions {
+        display: flex;
+        align-items: center;
+        margin-right: 14px;
+        flex-shrink: 0;
+    }
+
+    .top-actions .action-btn {
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    /* 顶部栏垂直居中（已剥离左上角 Logo / 系统名） */
+    .admin-header {
+        align-items: center;
+    }
+
+    /* —— 全高侧边栏使用深色：这是该布局的主导航列，与浅色内容区形成对比 —— */
+    .admin-side {
+        background: var(--app-side-bg);
+        border-right-color: var(--app-side-border);
+    }
+
+    .admin-side-top {
+        background: var(--app-side-bg);
+        border-bottom-color: var(--app-side-border);
+    }
+
+    .admin-side .el-menu {
+        --el-menu-text-color: var(--app-side-text);
+        --el-menu-hover-bg-color: var(--app-side-bg-hover);
+        --el-menu-hover-text-color: var(--app-side-text-hover);
+        --el-menu-active-color: var(--app-side-text-active);
+    }
+
+    /* 嵌套子菜单用更深的底表达层级 */
+    .admin-side .el-menu .el-menu {
+        background-color: var(--app-side-nested-bg);
+    }
+
+    .admin-side .el-menu .el-sub-menu__title:hover,
+    .admin-side .el-menu .el-menu-item:hover {
+        color: var(--app-side-text-hover);
+    }
+
+    .admin-side .el-menu .el-menu-item.is-active {
+        background-color: var(--app-side-bg-active);
+        color: var(--app-side-text-active);
+    }
+
+    /* 含有选中子项的父级菜单：只提亮文字，不铺满主色 */
+    .admin-side .el-menu .el-sub-menu.is-active > .el-sub-menu__title {
+        background-color: transparent;
+        color: var(--app-side-text-hover);
+    }
+}
+
+/* —— 经典布局（menu）/ 通栏布局（header）折叠态弹出子菜单（teleport 到 body）—— */
+html body[data-layout='menu'] .el-menu--popup-right-start,
+html body[data-layout='menu'] .el-menu--popup-right-end,
+html body[data-layout='header'] .el-menu--popup-right-start,
+html body[data-layout='header'] .el-menu--popup-right-end {
+    background-color: var(--app-side-bg);
+    border: 1px solid var(--app-side-border);
+    border-radius: var(--app-radius);
+    box-shadow: var(--app-shadow-md);
+    padding: 4px;
+}
+
+html body[data-layout='menu'] .el-menu--popup-right-start .el-menu-item,
+html body[data-layout='menu'] .el-menu--popup-right-start .el-sub-menu__title,
+html body[data-layout='menu'] .el-menu--popup-right-end .el-menu-item,
+html body[data-layout='menu'] .el-menu--popup-right-end .el-sub-menu__title,
+html body[data-layout='header'] .el-menu--popup-right-start .el-menu-item,
+html body[data-layout='header'] .el-menu--popup-right-start .el-sub-menu__title,
+html body[data-layout='header'] .el-menu--popup-right-end .el-menu-item,
+html body[data-layout='header'] .el-menu--popup-right-end .el-sub-menu__title {
+    color: var(--app-side-text);
+    border-radius: var(--app-radius-sm);
+}
+
+html body[data-layout='menu'] .el-menu--popup-right-start .el-menu-item:hover,
+html body[data-layout='menu'] .el-menu--popup-right-start .el-sub-menu__title:hover,
+html body[data-layout='menu'] .el-menu--popup-right-end .el-menu-item:hover,
+html body[data-layout='menu'] .el-menu--popup-right-end .el-sub-menu__title:hover,
+html body[data-layout='header'] .el-menu--popup-right-start .el-menu-item:hover,
+html body[data-layout='header'] .el-menu--popup-right-start .el-sub-menu__title:hover,
+html body[data-layout='header'] .el-menu--popup-right-end .el-menu-item:hover,
+html body[data-layout='header'] .el-menu--popup-right-end .el-sub-menu__title:hover {
+    background-color: var(--app-side-bg-hover);
+    color: var(--app-side-text-hover);
+}
+
+html body[data-layout='menu'] .el-menu--popup-right-start .el-menu-item.is-active,
+html body[data-layout='menu'] .el-menu--popup-right-end .el-menu-item.is-active,
+html body[data-layout='header'] .el-menu--popup-right-start .el-menu-item.is-active,
+html body[data-layout='header'] .el-menu--popup-right-end .el-menu-item.is-active {
+    background-color: var(--app-side-bg-active);
+    color: var(--app-side-text-active);
+}
+
+/* —— 通栏布局（header）：操作按钮使用中性文字色 —— */
+html body[data-layout='header'] {
+    .top-actions .action-btn {
+        color: var(--el-text-color-regular);
+    }
+
+    .top-actions .action-btn:hover {
+        color: var(--el-color-primary);
+    }
+}
+
+/* —— 经典布局（menu）：顶部栏改为浅色/白色，操作按钮与面包屑用深色 —— */
+html:not(.dark) body[data-layout='menu'] {
+    .admin-header {
+        background: #ffffff;
+        color: var(--el-text-color-primary);
+        border-bottom: 1px solid var(--el-border-color-light);
+    }
+
+    .top-actions .action-btn {
+        color: var(--el-text-color-regular);
+    }
+
+    .top-actions .action-btn:hover {
+        color: var(--el-color-primary);
+    }
+
+    /* 面包屑深色文字 */
+    .admin-header .admin-breadcrumb .el-breadcrumb__inner,
+    .admin-header .admin-breadcrumb .el-breadcrumb__separator {
+        color: var(--el-text-color-regular);
+    }
+
+    .admin-header .admin-breadcrumb .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+        color: var(--el-text-color-primary);
+    }
+
+    /* 用户栏在浅色顶栏下的适配 */
+    .admin-header .user-bar .user label {
+        color: var(--el-text-color-primary);
+    }
+
+    .admin-header .user-bar .panel-item:hover {
+        background: var(--el-fill-color-light) !important;
+    }
+}
+
+/* —— 经典布局（menu）深色模式：操作按钮使用中性文字色 —— */
+html.dark body[data-layout='menu'] {
+    .top-actions .action-btn {
+        color: var(--el-text-color-regular);
+    }
+
+    .top-actions .action-btn:hover {
+        color: var(--el-color-primary);
+    }
+}
+
+/* —— 功能坞布局（dock）：最上方整条通栏（Logo + 横向菜单 + 右侧工具）统一深色 —— */
+html body[data-layout='dock'] {
+    .admin-header {
+        background: var(--app-dock-bg);
+        border-bottom: 1px solid var(--app-side-border);
+        color: var(--app-side-text-hover);
+    }
+
+    /* Logo 与系统名 */
+    .admin-header .logo-bar {
+        color: var(--app-side-text-hover);
+    }
+
+    /* 横向菜单：深色底 + 白色文字，选中项主色填充 */
+    .admin-header-menu .el-menu {
+        --el-menu-bg-color: transparent;
+        --el-menu-text-color: var(--app-side-text);
+        --el-menu-hover-bg-color: var(--app-side-bg-hover);
+        --el-menu-hover-text-color: var(--app-side-text-hover);
+        --el-menu-active-color: var(--app-side-text-active);
+        border-bottom: none;
+    }
+
+    .admin-header-menu .el-menu .el-menu-item,
+    .admin-header-menu .el-menu .el-sub-menu__title {
+        color: var(--app-side-text);
+        border-radius: var(--app-radius-sm);
+    }
+
+    .admin-header-menu .el-menu .el-menu-item:hover,
+    .admin-header-menu .el-menu .el-sub-menu__title:hover {
+        background-color: var(--app-side-bg-hover);
+        color: var(--app-side-text-hover);
+    }
+
+    .admin-header-menu .el-menu .el-menu-item.is-active {
+        background-color: var(--app-side-bg-active);
+        color: var(--app-side-text-active);
+    }
+
+    /* 右侧用户栏在深色底上的适配 */
+    .admin-header .user-bar .user label {
+        color: var(--app-side-text-hover);
+    }
+
+    .admin-header .user-bar .panel-item:hover {
+        background: var(--app-side-bg-hover) !important;
+    }
+
+    /* 折叠的一级菜单触发按钮 */
+    .admin-header .admin-side-bottom {
+        background: transparent;
+        border-color: transparent;
+        color: var(--app-side-text);
+    }
+}
+
+/* —— 功能坞布局：横向菜单下拉二级菜单（teleport 到 body）同样使用深色 —— */
+html body[data-layout='dock'] .el-menu--popup {
+    background-color: var(--app-dock-bg);
+    border: 1px solid var(--app-side-border);
+    border-radius: var(--app-radius);
+    box-shadow: var(--app-shadow-md);
+    padding: 4px;
+}
+
+html body[data-layout='dock'] .el-menu--popup .el-menu-item,
+html body[data-layout='dock'] .el-menu--popup .el-sub-menu__title {
+    color: var(--app-side-text);
+    border-radius: var(--app-radius-sm);
+}
+
+html body[data-layout='dock'] .el-menu--popup .el-menu-item:hover,
+html body[data-layout='dock'] .el-menu--popup .el-sub-menu__title:hover {
+    background-color: var(--app-side-bg-hover);
+    color: var(--app-side-text-hover);
+}
+
+html body[data-layout='dock'] .el-menu--popup .el-menu-item.is-active {
+    background-color: var(--app-side-bg-active);
+    color: var(--app-side-text-active);
+}

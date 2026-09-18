@@ -1,0 +1,25 @@
+// 本地字体文件（随项目打包，保证无该字体的机器也能正常显示）
+/* 思源黑体 */
+@font-face {
+    font-family: 'Source Han Sans SC';
+    src: url('../font/SourceHanSansCN-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+// 优先使用本地已安装字体，无对应字体文件时回退到系统字体栈
+@font-face {
+    font-family: 'PingFang';
+    src: local('PingFang SC'), local('PingFang');
+}
+
+@font-face {
+    font-family: 'OPlusSans';
+    src: local('OPlusSans 3.0'), local('OPlusSans'), local('OPlus Sans');
+}
+
+@font-face {
+    font-family: 'SourceHanSansCN';
+    src: local('Source Han Sans CN'), local('SourceHanSansCN'), local('Source Han Sans');
+}
